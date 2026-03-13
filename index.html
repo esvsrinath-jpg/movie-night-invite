@@ -21,6 +21,51 @@ min-height:100vh;
 overflow:hidden;
 }
 
+/* loading screen */
+
+#loadingScreen{
+position:fixed;
+inset:0;
+background:#020617;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:300;
+}
+
+.loader{
+border:4px solid rgba(255,255,255,.2);
+border-top:4px solid #fb7185;
+border-radius:50%;
+width:40px;
+height:40px;
+animation:spin 1s linear infinite;
+margin-top:20px;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+/* curtains */
+
+.curtain{
+position:fixed;
+top:0;
+width:50%;
+height:100%;
+background:#8b0000;
+z-index:200;
+transition:transform 2s ease;
+}
+
+.left{left:0}
+.right{right:0}
+
+.open .left{transform:translateX(-100%)}
+.open .right{transform:translateX(100%)}
+
 /* floating hearts */
 
 .heart{
@@ -38,7 +83,7 @@ from{transform:translateY(100vh)}
 to{transform:translateY(-10vh)}
 }
 
-/* card */
+/* invite card */
 
 .card{
 position:relative;
@@ -101,8 +146,8 @@ display:none;
 align-items:center;
 justify-content:center;
 text-align:center;
-background:rgba(2,6,23,.92);
-z-index:100;
+background:rgba(2,6,23,.95);
+z-index:250;
 }
 
 #finalMessage h1{
@@ -123,7 +168,7 @@ position:fixed;
 width:12px;
 height:12px;
 top:-10px;
-z-index:200;
+z-index:260;
 animation:fall 3s linear forwards;
 }
 
@@ -138,6 +183,14 @@ opacity:0;
 </head>
 
 <body>
+
+<div id="loadingScreen">
+<h2>A special surprise is loading for you ❤️</h2>
+<div class="loader"></div>
+</div>
+
+<div class="curtain left"></div>
+<div class="curtain right"></div>
 
 <div id="finalMessage">
 <h1>
@@ -171,9 +224,16 @@ I'll be waiting for you 🥹
 
 <script>
 
+/* loading + curtain open */
+
+setTimeout(()=>{
+document.getElementById('loadingScreen').style.display='none';
+document.body.classList.add('open');
+},2500);
+
 /* floating hearts */
 
-for(let i=0;i<50;i++){
+for(let i=0;i<60;i++){
 const heart=document.createElement('div');
 heart.className='heart';
 heart.innerHTML='❤';
@@ -217,7 +277,6 @@ setTimeout(()=>conf.remove(),3000);
 setTimeout(()=>{
 
 document.getElementById('inviteCard').style.display='none';
-
 document.getElementById('finalMessage').style.display='flex';
 
 },2000);
