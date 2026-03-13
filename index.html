@@ -7,10 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#000;
+  background: radial-gradient(circle at top,#1e1b4b,#020617);
   color:white;
   display:flex;
   align-items:center;
@@ -19,153 +20,196 @@ body{
   overflow:hidden;
 }
 
-/* THEATER */
-.theater{
+/* LOADING SCREEN */
+#loadingScreen{
   position:fixed;
   inset:0;
+  background:#020617;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  background:radial-gradient(circle at center,#111 0%,#000 70%);
+  z-index:100;
 }
 
-.screen{
-  width:70vw;
-  height:70vh;
-  background:#f5f5f5;
-  border-radius:12px;
-  box-shadow:0 0 60px rgba(255,255,255,.15);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
+.loader{
+  border:4px solid rgba(255,255,255,0.1);
+  border-top:4px solid #fb7185;
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  animation:spin 1s linear infinite;
+  margin-top:20px;
 }
 
-/* CURTAINS */
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* CINEMA CURTAINS */
 .curtain{
   position:fixed;
   top:0;
   width:50%;
   height:100%;
   background:linear-gradient(90deg,#7f1d1d,#dc2626);
-  z-index:20;
+  z-index:50;
   transition:transform 2s ease;
 }
+
 .curtain.left{left:0}
 .curtain.right{right:0}
+
 .open .left{transform:translateX(-100%)}
 .open .right{transform:translateX(100%)}
 
-.card{
-  background:rgba(17,24,39,.9);
-  padding:40px;
-  border-radius:20px;
-  text-align:center;
-  max-width:420px;
+/* FLOATING HEARTS */
+.heart{
+  position:absolute;
+  color:#fb7185;
+  font-size:20px;
+  opacity:.6;
+  animation:float 8s linear infinite;
 }
 
-.title{font-size:32px;margin-bottom:10px}
-.subtitle{color:#fda4af;margin-bottom:20px}
+@keyframes float{
+  from{transform:translateY(100vh) scale(.6);opacity:0}
+  to{transform:translateY(-10vh) scale(1.2);opacity:1}
+}
+
+/* INVITE CARD */
+.card{
+  background:rgba(17,24,39,.9);
+  padding:45px;
+  border-radius:22px;
+  width:440px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  box-shadow:0 20px 60px rgba(0,0,0,.7);
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.title{font-size:34px;margin-bottom:8px}
+.subtitle{color:#fda4af;margin-bottom:25px}
 
 .details{
   background:#1f2937;
-  padding:18px;
-  border-radius:12px;
-  margin-bottom:20px;
+  padding:22px;
+  border-radius:14px;
+  margin-bottom:25px;
 }
-.details p{margin:8px 0}
 
-.buttons{display:flex;gap:10px;justify-content:center}
+.details p{margin:10px 0}
+
+.buttons{display:flex;gap:12px;justify-content:center}
+
 button{
   background:#fb7185;
   border:none;
-  padding:12px 20px;
+  padding:14px 22px;
   border-radius:10px;
   color:white;
   font-size:15px;
   cursor:pointer;
+  transition:.25s;
 }
+
+button:hover{
+  transform:scale(1.08);
+  background:#f43f5e;
+}
+
 .noBtn{background:#475569}
 
-/* MINION SCENE */
-#minionScene{
+.footer{margin-top:18px;font-size:14px;color:#d1d5db}
+
+/* HEART ENVELOPE */
+#heartEnvelope{
+  position:fixed;
+  font-size:120px;
+  top:120%;
+  left:50%;
+  transform:translateX(-50%);
   display:none;
-  width:100%;
-  height:100%;
-  background:black;
+  z-index:80;
+}
+
+.fly{
+  animation:flyUp 2s ease forwards;
+}
+
+@keyframes flyUp{
+  from{top:120%}
+  to{top:40%}
+}
+
+.burst{
+  animation:burst 0.8s ease forwards;
+}
+
+@keyframes burst{
+  0%{transform:translateX(-50%) scale(1)}
+  50%{transform:translateX(-50%) scale(1.5)}
+  100%{transform:translateX(-50%) scale(0);opacity:0}
+}
+
+/* FINAL MESSAGE */
+#finalMessage{
+  position:fixed;
+  inset:0;
+  display:none;
   align-items:center;
   justify-content:center;
   flex-direction:column;
-}
-
-.minionGif{
-  width:420px;
-  border-radius:12px;
-  margin-bottom:30px;
-}
-
-.finalMessage{
-  font-size:40px;
-  color:#ffd54a;
   text-align:center;
-  opacity:0;
-  animation:fadeInMsg 2s ease forwards;
-  animation-delay:2s;
+  background:rgba(2,6,23,.9);
+  z-index:90;
 }
 
-@keyframes fadeInMsg{
-  to{opacity:1}
-}
-
-.minionWalker{
-  position:absolute;
-  bottom:30%;
-  font-size:80px;
-  left:-120px;
-  animation:walkAcross 4s linear forwards;
-}
-
-@keyframes walkAcross{
-  from{left:-120px}
-  to{left:45%}
-}
-
-.heartSign{
+#finalMessage h1{
   font-size:40px;
-  margin-top:10px;
-  opacity:0;
-  animation:showSign 1s ease forwards;
-  animation-delay:4s;
-}
-
-@keyframes showSign{
-  to{opacity:1;transform:scale(1.1)}
-}
-
-.finalMessage{
-  font-size:30px;
   color:#ffd54a;
-  margin-top:20px;
-  opacity:0;
-  animation:fadeMsg 1s ease forwards;
-  animation-delay:5s;
 }
 
-@keyframes fadeMsg{
-  to{opacity:1}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  top:0;
+  animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+  to{transform:translateY(100vh) rotate(720deg);opacity:0}
 }
 
 </style>
 </head>
 <body>
 
-<audio id="chime">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b5d2b6a1c.mp3" type="audio/mpeg">
-</audio>
+<div id="loadingScreen">
+<h2>A special surprise is loading for you ❤️</h2>
+<div class="loader"></div>
+</div>
 
-<div class="theater">
-<div class="screen" id="screen">
+<div class="curtain left"></div>
+<div class="curtain right"></div>
+
+<div id="heartEnvelope">💌</div>
+
+<div id="finalMessage">
+<h1>
+See you at 10PM my Love ❤️<br>
+I'll be waiting for you 🥹
+</h1>
+</div>
 
 <div class="card" id="inviteCard">
 
@@ -183,42 +227,32 @@ button{
 <div style="margin-bottom:15px">Will you join me? 💖</div>
 
 <div class="buttons">
-<button onclick="startMovie()">Yes 💕</button>
-<button onclick="startMovie()">Absolutely 😍</button>
+<button onclick="celebrate()">Yes 💕</button>
+<button onclick="celebrate()">Absolutely 😍</button>
 <button class="noBtn" id="noBtn">No 🙈</button>
 </div>
 
-</div>
-
-<div id="minionScene">
-
-<img class="minionGif"
-src="https://media.tenor.com/8Q1s3pSkeKAAAAAC/minions-happy.gif"
-alt="Minions">
-
-<div class="finalMessage">
-See you at 10PM my Love ❤️<br>
-I'll be waiting for you 🥹
-</div>
+<div class="footer">Dress code: Cozy pajamas allowed 🥰</div>
 
 </div>
-
-</div>
-
-</div>
-</div>
-
-<div class="curtain left"></div>
-<div class="curtain right"></div>
 
 <script>
 
-/* CURTAIN OPEN + CHIME */
-window.onload=()=>{
- setTimeout(()=>{
-  document.body.classList.add('open');
-  document.getElementById('chime').play().catch(()=>{});
- },1000);
+/* LOADING + CURTAIN OPEN */
+setTimeout(()=>{
+ document.getElementById('loadingScreen').style.display='none';
+ document.body.classList.add('open');
+},3000);
+
+/* MORE FLOATING HEARTS */
+for(let i=0;i<60;i++){
+ const heart=document.createElement('div');
+ heart.className='heart';
+ heart.innerHTML='❤';
+ heart.style.left=Math.random()*100+'vw';
+ heart.style.animationDuration=(6+Math.random()*6)+'s';
+ heart.style.fontSize=(16+Math.random()*22)+'px';
+ document.body.appendChild(heart);
 }
 
 /* RUNNING NO BUTTON */
@@ -229,21 +263,37 @@ noBtn.addEventListener('mouseover',()=>{
  noBtn.style.transform=`translate(${x}px,${y}px)`;
 });
 
-function startMovie(){
+function celebrate(){
 
  noBtn.style.transform='translate(0,0)';
 
- const screen=document.getElementById('screen');
- const card=document.getElementById('inviteCard');
- const scene=document.getElementById('minionScene');
+ /* confetti */
+ for(let i=0;i<150;i++){
+  const conf=document.createElement('div');
+  conf.className='confetti';
+  conf.style.left=Math.random()*100+'vw';
+  conf.style.background=`hsl(${Math.random()*360},80%,60%)`;
+  conf.style.animationDuration=(2+Math.random()*2)+'s';
+  document.body.appendChild(conf);
+  setTimeout(()=>conf.remove(),3000);
+ }
 
- card.style.display='none';
-
- screen.style.background='black';
+ const env=document.getElementById('heartEnvelope');
+ env.style.display='block';
+ env.classList.add('fly');
 
  setTimeout(()=>{
-  scene.style.display='flex';
- },800);
+
+  env.classList.add('burst');
+
+  setTimeout(()=>{
+
+   env.style.display='none';
+   document.getElementById('finalMessage').style.display='flex';
+
+  },700);
+
+ },2000);
 
 }
 
@@ -251,4 +301,3 @@ function startMovie(){
 
 </body>
 </html>
-
