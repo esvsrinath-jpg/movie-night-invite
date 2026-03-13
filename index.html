@@ -1,253 +1,190 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie Night</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background: radial-gradient(circle at top,#1e1b4b,#020617);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  overflow:hidden;
-  padding:20px;
+margin:0;
+font-family:'Poppins',sans-serif;
+background: radial-gradient(circle at top,#1e1b4b,#020617);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+overflow:hidden;
 }
 
-/* LOADING SCREEN */
+/* loading screen */
+
 #loadingScreen{
-  position:fixed;
-  inset:0;
-  background:#020617;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  text-align:center;
-  padding:20px;
+position:fixed;
+inset:0;
+background:#020617;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:300;
 }
 
 .loader{
-  border:4px solid rgba(255,255,255,0.1);
-  border-top:4px solid #fb7185;
-  border-radius:50%;
-  width:50px;
-  height:50px;
-  animation:spin 1s linear infinite;
-  margin-top:20px;
+border:4px solid rgba(255,255,255,.2);
+border-top:4px solid #fb7185;
+border-radius:50%;
+width:40px;
+height:40px;
+animation:spin 1s linear infinite;
+margin-top:20px;
 }
 
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
 
-/* CINEMA CURTAINS */
+/* curtains */
+
 .curtain{
-  position:fixed;
-  top:0;
-  width:50%;
-  height:100%;
-  background:linear-gradient(90deg,#7f1d1d,#dc2626);
-  z-index:50;
-  transition:transform 2s ease;
+position:fixed;
+top:0;
+width:50%;
+height:100%;
+background:#8b0000;
+z-index:200;
+transition:transform 2s ease;
 }
 
-.curtain.left{left:0}
-.curtain.right{right:0}
+.left{left:0}
+.right{right:0}
 
 .open .left{transform:translateX(-100%)}
 .open .right{transform:translateX(100%)}
 
-/* FLOATING HEARTS */
+/* floating hearts */
+
 .heart{
-  position:absolute;
-  color:#fb7185;
-  font-size:18px;
-  opacity:.6;
-  animation:float 8s linear infinite;
-  z-index:0;
-  pointer-events:none;
+position:absolute;
+color:#fb7185;
+opacity:.6;
+font-size:18px;
+animation:float 8s linear infinite;
+z-index:0;
+pointer-events:none;
 }
 
 @keyframes float{
-  from{transform:translateY(100vh) scale(.6);opacity:0}
-  to{transform:translateY(-10vh) scale(1.2);opacity:1}
+from{transform:translateY(100vh)}
+to{transform:translateY(-10vh)}
 }
 
-/* INVITE CARD */
+/* invite card */
+
 .card{
-  position:relative;
-  z-index:10;
-  background:rgba(17,24,39,.92);
-  padding:35px 28px;
-  border-radius:20px;
-  width:100%;
-  max-width:420px;
-  text-align:center;
-  backdrop-filter:blur(10px);
-  box-shadow:0 20px 60px rgba(0,0,0,.7);
-  animation:fadeIn 1.2s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
+position:relative;
+z-index:10;
+background:rgba(17,24,39,.92);
+padding:35px 28px;
+border-radius:20px;
+max-width:420px;
+width:90%;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.7);
 }
 
 .title{
-  font-size:28px;
-  margin-bottom:6px;
+font-size:28px;
+margin-bottom:6px;
 }
 
 .subtitle{
-  color:#fda4af;
-  margin-bottom:20px;
-  font-size:14px;
+color:#fda4af;
+margin-bottom:20px;
 }
 
 .details{
-  background:#1f2937;
-  padding:18px;
-  border-radius:14px;
-  margin-bottom:20px;
-  font-size:14px;
+background:#1f2937;
+padding:18px;
+border-radius:14px;
+margin-bottom:20px;
 }
 
-.details p{margin:8px 0}
+.details p{margin:8px 0;}
 
 .buttons{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
 }
 
 button{
-  background:#fb7185;
-  border:none;
-  padding:12px 18px;
-  border-radius:10px;
-  color:white;
-  font-size:14px;
-  cursor:pointer;
-  transition:.25s;
+background:#fb7185;
+border:none;
+padding:12px 18px;
+border-radius:10px;
+color:white;
+font-size:14px;
+cursor:pointer;
 }
 
-button:hover{
-  transform:scale(1.05);
-  background:#f43f5e;
+.noBtn{
+background:#475569;
 }
 
-.noBtn{background:#475569}
+/* final message */
 
-.footer{
-  margin-top:14px;
-  font-size:12px;
-  color:#d1d5db
-}
-
-
-  50%{transform:translateX(-50%) scale(1.5)}
-  100%{transform:translateX(-50%) scale(0);opacity:0}
-}
-
-/* FINAL MESSAGE */
 #finalMessage{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  text-align:center;
-  background:rgba(2,6,23,.92);
-  z-index:90;
-  padding:25px;
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:rgba(2,6,23,.95);
+z-index:250;
+padding:20px;
 }
 
 #finalMessage h1{
-  font-size:28px;
-  color:#ffffff;
-  opacity:0;
-  animation:subtitleFade 2.5s ease forwards;
-  text-shadow:0 0 18px rgba(255,255,255,0.6);
+font-size:32px;
+color:white;
+opacity:0;
+animation:fadeIn 2s forwards;
 }
 
-@keyframes subtitleFade{
-  0%{opacity:0;transform:translateY(20px)}
-  100%{opacity:1;transform:translateY(0)}
+@keyframes fadeIn{
+to{opacity:1}
 }
 
-/* CONFETTI */
+/* confetti */
+
 .confetti{
 position:fixed;
-width:8px;
+width:10px;
 height:14px;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
+top:-20px;
 z-index:260;
-pointer-events:none;
-animation:confettiBurst 2.8s ease-out forwards;
+animation:fall 2.5s linear forwards;
 }
 
-@keyframes confettiBurst{
-0%{
-transform:translate(-50%,-50%) scale(0);
-opacity:1;
-}
-100%{
-transform:translate(var(--x), var(--y)) rotate(720deg);
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(720deg);
 opacity:0;
 }
 }
 
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(720deg);opacity:0}
-}
-
-/* MOBILE OPTIMIZATION */
-@media (max-width:480px){
-
-  body{
-    padding:16px;
-  }
-
-  .card{
-    padding:28px 22px;
-  }
-
-  .title{
-    font-size:24px;
-  }
-
-  .details{
-    font-size:13px;
-  }
-
-  button{
-    width:100%;
-  }
-
-  #finalMessage h1{
-    font-size:24px;
-    line-height:1.4;
-  }
-
-  #heartEnvelope{
-    font-size:70px;
-  }
-
-}
-
 </style>
+
 </head>
+
 <body>
 
 <div id="loadingScreen">
@@ -258,9 +195,7 @@ opacity:0;
 <div class="curtain left"></div>
 <div class="curtain right"></div>
 
-
-
-<div id="finalMessage">
+<div id="finalMessage" style="display:none;">
 <h1>
 See you at 10PM my Love ❤️<br>
 I'll be waiting for you 🥹
@@ -273,14 +208,14 @@ I'll be waiting for you 🥹
 <div class="subtitle">Just you, me & a cozy movie ❤️</div>
 
 <div class="details">
-<p><strong>With:</strong> My Beautiful Fiancé ❤️</p>
-<p><strong>Date:</strong> Tonight</p>
-<p><strong>Time:</strong> 10 PM</p>
-<p><strong>Movie:</strong> Couple Friendly (Amazon Prime)</p>
-<p><strong>Snacks:</strong> YOU 😋</p>
+<p><b>With:</b> My Beautiful Fiancé ❤️</p>
+<p><b>Date:</b> Tonight</p>
+<p><b>Time:</b> 10 PM</p>
+<p><b>Movie:</b> Couple Friendly (Amazon Prime)</p>
+<p><b>Snacks:</b> YOU 😋</p>
 </div>
 
-<div style="margin-bottom:15px">Will you join me? 💖</div>
+<p>Will you join me? 💖</p>
 
 <div class="buttons">
 <button onclick="celebrate()">Yes 💕</button>
@@ -288,83 +223,68 @@ I'll be waiting for you 🥹
 <button class="noBtn" id="noBtn">No 🙈</button>
 </div>
 
-<div class="footer">Dress code: Cozy pajamas allowed 🥰</div>
-
 </div>
 
 <script>
 
-/* LOADING + CURTAIN OPEN */
-setTimeout(()=>{
- document.getElementById('loadingScreen').style.display='none';
- document.body.classList.add('open');
-},3000);
+/* loading + curtain open */
 
-/* FLOATING HEARTS */
+setTimeout(()=>{
+document.getElementById('loadingScreen').style.display='none';
+document.body.classList.add('open');
+},2500);
+
+/* floating hearts */
+
 for(let i=0;i<60;i++){
- const heart=document.createElement('div');
- heart.className='heart';
- heart.innerHTML='❤';
- heart.style.left=Math.random()*100+'vw';
- heart.style.animationDuration=(6+Math.random()*6)+'s';
- heart.style.fontSize=(16+Math.random()*22)+'px';
- document.body.appendChild(heart);
+const heart=document.createElement('div');
+heart.className='heart';
+heart.innerHTML='❤';
+heart.style.left=Math.random()*100+'vw';
+heart.style.animationDuration=(6+Math.random()*6)+'s';
+heart.style.fontSize=(14+Math.random()*18)+'px';
+document.body.appendChild(heart);
 }
 
-/* RUNNING NO BUTTON */
+/* running no button */
+
 const noBtn=document.getElementById('noBtn');
+
 noBtn.addEventListener('mouseover',()=>{
- const x=Math.random()*200-100;
- const y=Math.random()*200-100;
- noBtn.style.transform=`translate(${x}px,${y}px)`;
+const x=Math.random()*150-75;
+const y=Math.random()*150-75;
+noBtn.style.transform=`translate(${x}px,${y}px)`;
 });
+
+/* celebration */
 
 function celebrate(){
 
- noBtn.style.transform='translate(0,0)';
+const pieces = window.innerWidth < 600 ? 120 : 200;
 
- /* FULL SCREEN CONFETTI BURST */
- const pieces = window.innerWidth < 600 ? 120 : 200;
 for(let i=0;i<pieces;i++){
-  const conf=document.createElement('div');
-  conf.className='confetti';
 
-  /* start from random horizontal positions */
-  conf.style.left=Math.random()*100+'vw';
+const conf=document.createElement('div');
+conf.className='confetti';
 
-  /* random colors */
-  conf.style.background=`hsl(${Math.random()*360},85%,60%)`;
+conf.style.left=Math.random()*100+'vw';
+conf.style.background=`hsl(${Math.random()*360},80%,60%)`;
 
-  /* random sizes */
-  const size=8+Math.random()*10;
-  conf.style.width=size+'px';
-  conf.style.height=size+'px';
+const size=6+Math.random()*8;
+conf.style.width=size+'px';
+conf.style.height=size+'px';
 
-  /* random falling speed */
-  conf.style.animationDuration=(2+Math.random()*2)+'s';
+document.body.appendChild(conf);
 
-  document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),3000);
 
-  setTimeout(()=>conf.remove(),4000);
- }
+}
 
- /* after confetti celebration, reveal final scene */
- setTimeout(()=>{
+document.getElementById('inviteCard').style.display='none';
 
-   /* hearts drift to center */
-   const hearts=document.querySelectorAll('.heart');
-   hearts.forEach(h=>{
-     h.style.transition='all 3s ease';
-     h.style.left='50vw';
-     h.style.top='50vh';
-     h.style.transform='translate(-50%,-50%) scale(1.5)';
-     h.style.opacity='0.8';
-   });
-
-   document.getElementById('inviteCard').style.display='none';
-   document.getElementById('finalMessage').style.display='flex';
-
- },2200);
+setTimeout(()=>{
+document.getElementById('finalMessage').style.display='flex';
+},1800);
 
 }
 
