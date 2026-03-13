@@ -8,6 +8,7 @@
 
 <style>
 body{
+  transition:background 1.5s ease;
   margin:0;
   font-family:'Poppins',sans-serif;
   background: radial-gradient(circle at top,#1e1b4b,#020617);
@@ -172,10 +173,12 @@ button:hover{transform:scale(1.08);background:#f43f5e}
 /* starry sky */
 .star{
   position:fixed;
-  width:2px;
-  height:2px;
+  width:3px;
+  height:3px;
   background:white;
-  opacity:.8;
+  border-radius:50%;
+  opacity:.9;
+  z-index:5;
   animation:twinkle 2s infinite alternate;
 }
 
@@ -207,6 +210,11 @@ button:hover{transform:scale(1.08);background:#f43f5e}
   to{transform:translateY(100vh) rotate(720deg);opacity:0}
 }
 
+
+body.night{
+  background: radial-gradient(circle at top,#020617,#000000);
+}
+
 </style>
 </head>
 <body>
@@ -223,7 +231,7 @@ button:hover{transform:scale(1.08);background:#f43f5e}
 
 <div id="finalDialog">
   <div class="dialogBox">
-    <h2>See you at 9:30 Sweetheart ❤️🍿</h2>
+    <h2>See you at 9:30, my love ❤️🍿</h2>
     <div id="countdown"></div>
   </div>
 </div>
@@ -251,15 +259,15 @@ for(let i=0;i<20;i++){
 
 <div class="card">
 
-<div class="title">🎬 Movie Night</div>
+<div class="title">🎬 Romantic Movie Night</div>
 <div class="subtitle">Just you, me & a cozy movie 🍿❤️</div>
 
 <div class="details">
 <p><strong>With:</strong> My Beautiful Fiancé ❤️</p>
-<p><strong>Date:</strong> Tonight</p>
+<p><strong>Date:</strong> Friday Night</p>
 <p><strong>Time:</strong> 9:30 PM</p>
-<p><strong>Movie:</strong> Couple Friendly (Amazon Prime)</p>
-<p><strong>Snacks:</strong> YOU & Chocolate 🍫</p>
+<p><strong>Movie:</strong> Couple Friendly (Telugu)</p>
+<p><strong>Snacks:</strong> Popcorn & Chocolate 🍫</p>
 </div>
 
 <div class="question">Will you join me for this special night? 💖</div>
@@ -270,7 +278,7 @@ for(let i=0;i<20;i++){
 <button class="noBtn" id="noBtn">No 🙈</button>
 </div>
 
-<div class="footer">Dress code: Cozy pajamas allowed(iykyk)🥰</div>
+<div class="footer">Dress code: Cozy pajamas allowed 🥰</div>
 
 </div>
 
@@ -327,6 +335,8 @@ function createGlowHearts(){
 }
 
 function celebrate(){
+
+ document.body.classList.add('night');
 
  noBtn.style.transform='translate(0,0)';
 
