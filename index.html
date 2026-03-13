@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Movie Night Invitation</title>
+<title>Movie Night</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
-  transition:background 1.5s ease;
   margin:0;
   font-family:'Poppins',sans-serif;
-  background: radial-gradient(circle at top,#1e1b4b,#020617);
+  background:#000;
   color:white;
   display:flex;
   align-items:center;
@@ -20,39 +19,37 @@ body{
   overflow:hidden;
 }
 
-/* loading screen */
-#loadingScreen{
+/* MOVIE THEATER BACKDROP */
+.theater{
   position:fixed;
   inset:0;
-  background:#020617;
+  background:radial-gradient(circle at center,#111 0%,#000 70%);
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  z-index:50;
-  text-align:center;
 }
 
-.loader{
-  border:4px solid rgba(255,255,255,0.1);
-  border-top:4px solid #fb7185;
-  border-radius:50%;
-  width:50px;
-  height:50px;
-  animation:spin 1s linear infinite;
-  margin-top:20px;
+.screen{
+  width:70vw;
+  height:70vh;
+  background:#f5f5f5;
+  border-radius:12px;
+  box-shadow:0 0 60px rgba(255,255,255,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
 }
 
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* cinema curtains */
+/* curtains */
 .curtain{
   position:fixed;
   top:0;
   width:50%;
   height:100%;
   background:linear-gradient(90deg,#7f1d1d,#dc2626);
-  z-index:40;
+  z-index:20;
   transition:transform 2s ease;
 }
 
@@ -62,343 +59,149 @@ body{
 .open .left{transform:translateX(-100%)}
 .open .right{transform:translateX(100%)}
 
-/* floating hearts */
-.heart{
-  position:absolute;
-  color:#fb7185;
-  font-size:20px;
-  animation:float 6s linear infinite;
-  opacity:.6;
-}
-
-@keyframes float{
-  from{transform:translateY(100vh) scale(.5);opacity:0}
-  to{transform:translateY(-10vh) scale(1.2);opacity:1}
-}
-
 .card{
   background:rgba(17,24,39,.9);
-  padding:45px;
-  border-radius:22px;
-  width:440px;
-  text-align:center;
-  backdrop-filter:blur(10px);
-  box-shadow:0 20px 60px rgba(0,0,0,.7);
-  animation:fadeIn 1.5s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.title{font-size:34px;margin-bottom:8px}
-.subtitle{color:#fda4af;margin-bottom:20px}
-
-.details{
-  background:#1f2937;
-  padding:22px;
-  border-radius:14px;
-  margin-bottom:25px;
-}
-
-.details p{margin:10px 0}
-
-.question{font-size:20px;margin-bottom:18px}
-
-.buttons{display:flex;gap:12px;justify-content:center}
-
-button{
-  background:#fb7185;
-  border:none;
-  padding:14px 22px;
-  border-radius:10px;
-  color:white;
-  font-size:15px;
-  cursor:pointer;
-  transition:.25s;
-}
-
-button:hover{transform:scale(1.08);background:#f43f5e}
-
-.noBtn{background:#475569}
-
-.footer{margin-top:18px;font-size:14px;color:#d1d5db}
-
-/* envelope */
-#heartEnvelope{
-  position:fixed;
-  font-size:120px;
-  top:120%;
-  left:50%;
-  transform:translateX(-50%);
-  display:none;
-  z-index:60;
-}
-
-.fly{
-  animation:flyUp 2s ease forwards;
-}
-
-.burst{
-  animation:burstHeart .8s ease forwards;
-}
-
-@keyframes flyUp{
-  from{top:120%}
-  to{top:40%}
-}
-
-@keyframes burstHeart{
-  0%{transform:translateX(-50%) scale(1);opacity:1}
-  50%{transform:translateX(-50%) scale(1.6);opacity:1}
-  100%{transform:translateX(-50%) scale(0);opacity:0}
-}
-
-@keyframes flyUp{to{top:40%}}
-
-/* popup dialog */
-#finalDialog{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:70;
-  background:rgba(2,6,23,.85);
-}
-
-.dialogBox{
-  background:#020617;
   padding:40px;
   border-radius:20px;
   text-align:center;
   max-width:420px;
-  box-shadow:0 20px 60px rgba(0,0,0,.7);
 }
 
-.dialogBox h2{
-  color:#fda4af;
-  margin-bottom:15px;
+.title{font-size:32px;margin-bottom:10px}
+.subtitle{color:#fda4af;margin-bottom:20px}
+
+.details{
+  background:#1f2937;
+  padding:18px;
+  border-radius:12px;
+  margin-bottom:20px;
 }
 
-#countdown{
-  font-size:22px;
-  margin-top:10px;
-  color:#fff;
+.details p{margin:8px 0}
+
+.buttons{display:flex;gap:10px;justify-content:center}
+
+button{
+  background:#fb7185;
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
 }
 
-/* starry sky */
-.star{
-  position:fixed;
-  width:3px;
-  height:3px;
-  background:white;
-  border-radius:50%;
-  opacity:.9;
-  z-index:5;
-  animation:twinkle 2s infinite alternate;
+.noBtn{background:#475569}
+
+/* MINION STYLE ANIMATION */
+#minionScene{
+  display:none;
+  width:100%;
+  height:100%;
+  background:#000;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  color:white;
+  font-size:32px;
 }
 
-@keyframes twinkle{from{opacity:.2}to{opacity:1}}
-
-/* glowing hearts */
-.glowHeart{
-  position:fixed;
-  color:#fb7185;
-  font-size:24px;
-  animation:floatHeart 6s linear infinite;
+.minion{
+  font-size:80px;
+  animation:bounce 1.5s infinite;
 }
 
-@keyframes floatHeart{
-  from{transform:translateY(100vh);opacity:0}
-  to{transform:translateY(-20vh);opacity:1}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
 }
 
-/* confetti */
-.confetti{
-  position:fixed;
-  width:10px;
-  height:10px;
-  top:0;
-  animation:fall 3s linear forwards;
-}
-
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(720deg);opacity:0}
-}
-
-
-body.night{
-  background: radial-gradient(circle at top,#020617,#000000);
+.message{
+  margin-top:20px;
+  font-size:28px;
+  color:#ffd54a;
 }
 
 </style>
 </head>
 <body>
 
-<div id="loadingScreen">
-  <h2>A special surprise is loading for you ❤️</h2>
-  <div class="loader"></div>
+<audio id="chime">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b5d2b6a1c.mp3" type="audio/mpeg">
+</audio>
+
+<div class="theater">
+<div class="screen" id="screen">
+
+<div class="card" id="inviteCard">
+
+<div class="title">🎬 Movie Night</div>
+<div class="subtitle">Just you, me & a cozy movie 🍿❤️</div>
+
+<div class="details">
+<p><strong>With:</strong> My Beautiful Fiancé ❤️</p>
+<p><strong>Date:</strong> Tonight</p>
+<p><strong>Time:</strong> 10 PM</p>
+<p><strong>Movie:</strong> Couple Friendly (Amazon Prime)</p>
+<p><strong>Snacks:</strong> YOU 😋</p>
+</div>
+
+<div style="margin-bottom:15px">Will you join me? 💖</div>
+
+<div class="buttons">
+<button onclick="startMovie()">Yes 💕</button>
+<button onclick="startMovie()">Absolutely 😍</button>
+<button class="noBtn" id="noBtn">No 🙈</button>
+</div>
+
+</div>
+
+<div id="minionScene">
+<div class="minion">🟡🟡</div>
+<div class="message">See you at 10PM my Love ♥️<br>I'll be waiting for you 🥹</div>
+</div>
+
+</div>
 </div>
 
 <div class="curtain left"></div>
 <div class="curtain right"></div>
 
-<div id="heartEnvelope">💌</div>
-
-<div id="finalDialog">
-  <div id="preMessage" style="display:none;font-size:28px;color:#fda4af;margin-bottom:20px;text-align:center">For my beautiful fiancée… ❤️</div>
-  <div class="dialogBox">
-    <h2>See you at 9:30, my love ❤️🍿</h2>
-    <div id="countdown"></div>
-  </div>
-</div>
-
 <script>
 
-/* loading */
-setTimeout(()=>{
- document.getElementById('loadingScreen').style.display='none';
- document.body.classList.add('open');
-},3000);
-
-/* floating hearts background */
-for(let i=0;i<20;i++){
- const heart=document.createElement('div');
- heart.className='heart';
- heart.innerHTML='❤';
- heart.style.left=Math.random()*100+'vw';
- heart.style.animationDuration=(4+Math.random()*4)+'s';
- heart.style.fontSize=(14+Math.random()*20)+'px';
- document.body.appendChild(heart);
+/* open curtains + chime */
+window.onload=()=>{
+ setTimeout(()=>{
+  document.body.classList.add('open');
+  document.getElementById('chime').play().catch(()=>{});
+ },1000);
 }
 
-</script>
-
-<div class="card">
-
-<div class="title">🎬 Romantic Movie Night</div>
-<div class="subtitle">Just you, me & a cozy movie 🍿❤️</div>
-
-<div class="details">
-<p><strong>With:</strong> My Beautiful Fiancé ❤️</p>
-<p><strong>Date:</strong> Friday Night</p>
-<p><strong>Time:</strong> 9:30 PM</p>
-<p><strong>Movie:</strong> Couple Friendly (Telugu)</p>
-<p><strong>Snacks:</strong> Popcorn & Chocolate 🍫</p>
-</div>
-
-<div class="question">Will you join me for this special night? 💖</div>
-
-<div class="buttons">
-<button onclick="celebrate()">Yes 💕</button>
-<button onclick="celebrate()">Absolutely 😍</button>
-<button class="noBtn" id="noBtn">No 🙈</button>
-</div>
-
-<div class="footer">Dress code: Cozy pajamas allowed 🥰</div>
-
-</div>
-
-<script>
-
+/* running no button */
 const noBtn=document.getElementById('noBtn');
-
 noBtn.addEventListener('mouseover',()=>{
  const x=Math.random()*200-100;
  const y=Math.random()*200-100;
  noBtn.style.transform=`translate(${x}px,${y}px)`;
 });
 
-/* countdown target */
-const target=new Date();
-target.setHours(21,30,0);
-if(target < new Date()) target.setDate(target.getDate()+1);
-
-function startCountdown(){
- setInterval(()=>{
-  const now=new Date();
-  const diff=target-now;
-
-  const h=Math.floor(diff/1000/60/60);
-  const m=Math.floor(diff/1000/60)%60;
-  const s=Math.floor(diff/1000)%60;
-
-  document.getElementById('countdown').innerHTML=
-  `${h}h ${m}m ${s}s until our movie night`;
- },1000);
-}
-
-function createStars(){
- for(let i=0;i<120;i++){
-  const star=document.createElement('div');
-  star.className='star';
-  star.style.left=Math.random()*100+'vw';
-  star.style.top=Math.random()*100+'vh';
-  document.body.appendChild(star);
- }
-}
-
-function createGlowHearts(){
- setInterval(()=>{
-  const heart=document.createElement('div');
-  heart.className='glowHeart';
-  heart.innerHTML='❤️';
-  heart.style.left=Math.random()*100+'vw';
-  heart.style.fontSize=(20+Math.random()*20)+'px';
-  document.body.appendChild(heart);
-
-  setTimeout(()=>heart.remove(),6000);
- },400);
-}
-
-function celebrate(){
+function startMovie(){
 
  noBtn.style.transform='translate(0,0)';
 
- /* confetti */
- for(let i=0;i<140;i++){
-  const conf=document.createElement('div');
-  conf.className='confetti';
-  conf.style.left=Math.random()*100+'vw';
-  conf.style.background=`hsl(${Math.random()*360},80%,60%)`;
-  conf.style.animationDuration=(2+Math.random()*2)+'s';
-  document.body.appendChild(conf);
-  setTimeout(()=>conf.remove(),3000);
- }
+ const screen=document.getElementById('screen');
+ const card=document.getElementById('inviteCard');
+ const scene=document.getElementById('minionScene');
 
- const env=document.getElementById('heartEnvelope');
- env.style.display='block';
- env.classList.add('fly');
+ card.style.display='none';
+
+ /* blank theater screen */
+ screen.style.background='black';
 
  setTimeout(()=>{
-
-  env.innerHTML='❤️';
-  env.classList.add('burst');
-
-  createStars();
-  createGlowHearts();
-
-  setTimeout(()=>{
-
-   env.style.display='none';
-
-   const dialog=document.getElementById('finalDialog');
-   const pre=document.getElementById('preMessage');
-
-   dialog.style.display='flex';
-   pre.style.display='block';
-
-   setTimeout(()=>{
-     pre.style.display='none';
-     dialog.querySelector('h2').style.display='block';
-     startCountdown();
-   },2000);
-
-  },900);
-
- },2000);
+  scene.style.display='flex';
+ },1000);
 
 }
 
