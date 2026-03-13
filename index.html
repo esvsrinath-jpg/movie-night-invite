@@ -94,27 +94,27 @@ button{
   width:100%;
   height:100%;
   background:black;
-  position:relative;
   align-items:center;
   justify-content:center;
   flex-direction:column;
-  text-align:center;
 }
 
 .minionGif{
-  width:220px;
-  margin-bottom:20px;
+  width:420px;
+  border-radius:12px;
+  margin-bottom:30px;
 }
 
 .finalMessage{
-  font-size:30px;
+  font-size:40px;
   color:#ffd54a;
+  text-align:center;
   opacity:0;
-  animation:fadeMsg 1.5s ease forwards;
+  animation:fadeInMsg 2s ease forwards;
   animation-delay:2s;
 }
 
-@keyframes fadeMsg{
+@keyframes fadeInMsg{
   to{opacity:1}
 }
 
@@ -192,10 +192,12 @@ button{
 
 <div id="minionScene">
 
-<img class="minionGif" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Minions" />
+<img class="minionGif"
+src="https://media.tenor.com/8Q1s3pSkeKAAAAAC/minions-happy.gif"
+alt="Minions">
 
 <div class="finalMessage">
-See you at 10PM my Love ♥️<br>
+See you at 10PM my Love ❤️<br>
 I'll be waiting for you 🥹
 </div>
 
