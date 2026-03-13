@@ -152,28 +152,7 @@ button:hover{
   color:#d1d5db
 }
 
-/* HEART ENVELOPE */
-#heartEnvelope{
-  position:fixed;
-  font-size:90px;
-  top:120%;
-  left:50%;
-  transform:translateX(-50%);
-  display:none;
-  z-index:80;
-}
 
-.fly{animation:flyUp 2s ease forwards}
-
-@keyframes flyUp{
-  from{top:120%}
-  to{top:40%}
-}
-
-.burst{animation:burst 0.8s ease forwards}
-
-@keyframes burst{
-  0%{transform:translateX(-50%) scale(1)}
   50%{transform:translateX(-50%) scale(1.5)}
   100%{transform:translateX(-50%) scale(0);opacity:0}
 }
@@ -208,9 +187,11 @@ button:hover{
 /* CONFETTI */
 .confetti{
   position:fixed;
-  width:10px;
-  height:10px;
-  top:0;
+  width:12px;
+  height:12px;
+  top:-10px;
+  z-index:200; /* ensure confetti is in front */
+  pointer-events:none;
   animation:fall 3s linear forwards;
 }
 
@@ -264,7 +245,7 @@ button:hover{
 <div class="curtain left"></div>
 <div class="curtain right"></div>
 
-<div id="heartEnvelope">💌</div>
+
 
 <div id="finalMessage">
 <h1>
@@ -329,28 +310,32 @@ function celebrate(){
 
  noBtn.style.transform='translate(0,0)';
 
- /* confetti */
- for(let i=0;i<150;i++){
+ /* FULL SCREEN CONFETTI BURST */
+ for(let i=0;i<220;i++){
   const conf=document.createElement('div');
   conf.className='confetti';
+
+  /* start from random horizontal positions */
   conf.style.left=Math.random()*100+'vw';
-  conf.style.background=`hsl(${Math.random()*360},80%,60%)`;
+
+  /* random colors */
+  conf.style.background=`hsl(${Math.random()*360},85%,60%)`;
+
+  /* random sizes */
+  const size=8+Math.random()*10;
+  conf.style.width=size+'px';
+  conf.style.height=size+'px';
+
+  /* random falling speed */
   conf.style.animationDuration=(2+Math.random()*2)+'s';
+
   document.body.appendChild(conf);
-  setTimeout(()=>conf.remove(),3000);
+
+  setTimeout(()=>conf.remove(),4000);
  }
 
- const env=document.getElementById('heartEnvelope');
- env.style.display='block';
- env.classList.add('fly');
-
+ /* after confetti celebration, reveal final scene */
  setTimeout(()=>{
-
-  env.classList.add('burst');
-
-  setTimeout(()=>{
-
-   env.style.display='none';
 
    /* hearts drift to center */
    const hearts=document.querySelectorAll('.heart');
@@ -365,9 +350,7 @@ function celebrate(){
    document.getElementById('inviteCard').style.display='none';
    document.getElementById('finalMessage').style.display='flex';
 
-  },700);
-
- },2000);
+ },2200);
 
 }
 
