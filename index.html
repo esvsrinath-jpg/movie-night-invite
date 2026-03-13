@@ -11,9 +11,7 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:
-    radial-gradient(circle at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%),
-    radial-gradient(circle at top,#1e1b4b,#020617);
+  background: radial-gradient(circle at top,#1e1b4b,#020617);
   color:white;
   display:flex;
   align-items:center;
@@ -175,10 +173,10 @@ button:hover{
 
 #finalMessage h1{
   font-size:40px;
-  color:#ffd54a;
+  color:#ffffff;
   opacity:0;
   animation:subtitleFade 2.5s ease forwards;
-  text-shadow:0 0 15px rgba(255,213,74,0.5);
+  text-shadow:0 0 18px rgba(255,255,255,0.6);
 }
 
 
@@ -194,16 +192,7 @@ button:hover{
 @keyframes fall{
   to{transform:translateY(100vh) rotate(720deg);opacity:0}
 }
-@keyframes subtitleFade{
-  0%{
-    opacity:0;
-    transform:translateY(20px);
-  }
-  100%{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
+
 </style>
 </head>
 <body>
