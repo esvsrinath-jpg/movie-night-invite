@@ -20,6 +20,48 @@ body{
   overflow:hidden;
 }
 
+/* LOADING SCREEN */
+#loadingScreen{
+  position:fixed;
+  inset:0;
+  background:#020617;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:20;
+  text-align:center;
+}
+
+.loader{
+  border:4px solid rgba(255,255,255,0.1);
+  border-top:4px solid #fb7185;
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  animation:spin 1s linear infinite;
+  margin-top:20px;
+}
+
+@keyframes spin{to{ transform:rotate(360deg); }}
+
+/* CINEMA CURTAINS */
+.curtain{
+  position:fixed;
+  top:0;
+  width:50%;
+  height:100%;
+  background:linear-gradient(90deg,#7f1d1d,#dc2626);
+  z-index:15;
+  transition:transform 2s ease;
+}
+
+.curtain.left{ left:0; }
+.curtain.right{ right:0; }
+
+.open .left{ transform:translateX(-100%); }
+.open .right{ transform:translateX(100%); }
+
 /* floating hearts */
 .heart{
   position:absolute;
@@ -50,15 +92,8 @@ body{
   to{opacity:1; transform:translateY(0)}
 }
 
-.title{
-  font-size:34px;
-  margin-bottom:8px;
-}
-
-.subtitle{
-  color:#fda4af;
-  margin-bottom:25px;
-}
+.title{ font-size:34px; margin-bottom:8px; }
+.subtitle{ color:#fda4af; margin-bottom:20px; }
 
 .details{
   background:#1f2937;
@@ -67,20 +102,11 @@ body{
   margin-bottom:25px;
 }
 
-.details p{
-  margin:10px 0;
-}
+.details p{ margin:10px 0; }
 
-.question{
-  font-size:20px;
-  margin-bottom:18px;
-}
+.question{ font-size:20px; margin-bottom:18px; }
 
-.buttons{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-}
+.buttons{ display:flex; gap:12px; justify-content:center; }
 
 button{
   background:#fb7185;
@@ -93,22 +119,47 @@ button{
   transition:0.25s;
 }
 
-button:hover{
-  transform:scale(1.08);
-  background:#f43f5e;
-}
+button:hover{ transform:scale(1.08); background:#f43f5e; }
 
-.footer{
-  margin-top:18px;
-  font-size:14px;
-  color:#d1d5db;
-}
+.noBtn{ background:#475569; }
 
-.finalMessage{
-  margin-top:20px;
-  font-size:20px;
+.footer{ margin-top:18px; font-size:14px; color:#d1d5db; }
+
+/* COUNTDOWN */
+#countdown{
+  margin-top:15px;
+  font-size:18px;
   color:#fda4af;
+}
+
+/* flying heart envelope */
+#heartEnvelope{
+  position:fixed;
+  font-size:120px;
+  top:120%;
+  left:50%;
+  transform:translateX(-50%);
   display:none;
+  animation:flyUp 2s ease forwards;
+  z-index:30;
+}
+
+@keyframes flyUp{
+  to{ top:40%; }
+}
+
+/* final message center */
+#bigMessage{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  text-align:center;
+  color:#fff;
+  z-index:40;
+  background:rgba(2,6,23,0.85);
 }
 
 /* confetti */
@@ -116,7 +167,6 @@ button:hover{
   position:fixed;
   width:10px;
   height:10px;
-  background:red;
   top:0;
   animation:fall 3s linear forwards;
 }
@@ -132,7 +182,26 @@ button:hover{
 </head>
 <body>
 
+<div id="loadingScreen">
+  <h2>A special surprise is loading for you ❤️</h2>
+  <div class="loader"></div>
+</div>
+
+<div class="curtain left"></div>
+<div class="curtain right"></div>
+
+<div id="heartEnvelope">💌</div>
+
+<div id="bigMessage">See you at 9:30, my love ❤️🍿</div>
+
 <script>
+
+/* loading delay then open curtains */
+setTimeout(()=>{
+  document.getElementById('loadingScreen').style.display='none';
+  document.body.classList.add('open');
+},3000);
+
 /* floating hearts */
 for(let i=0;i<20;i++){
   const heart=document.createElement('div');
@@ -143,6 +212,7 @@ for(let i=0;i<20;i++){
   heart.style.fontSize=(14+Math.random()*20)+'px';
   document.body.appendChild(heart);
 }
+
 </script>
 
 <div class="card">
@@ -163,18 +233,48 @@ for(let i=0;i<20;i++){
 <div class="buttons">
 <button onclick="celebrate()">Yes 💕</button>
 <button onclick="celebrate()">Absolutely 😍</button>
+<button class="noBtn" id="noBtn">No 🙈</button>
 </div>
 
-<div class="footer">Dress code: Cozy pajamas allowed 🥰</div>
+<div id="countdown"></div>
 
-<div id="finalMessage" class="finalMessage">See you at 9:30, my love ❤️🍿</div>
+<div class="footer">Dress code: Cozy pajamas allowed 🥰</div>
 
 </div>
 
 <script>
+
+const noBtn=document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",()=>{
+  const x=Math.random()*200-100;
+  const y=Math.random()*200-100;
+  noBtn.style.transform=`translate(${x}px,${y}px)`;
+});
+
+/* countdown timer */
+const target=new Date();
+target.setHours(21,30,0);
+if(target < new Date()) target.setDate(target.getDate()+1);
+
+setInterval(()=>{
+  const now=new Date();
+  const diff=target-now;
+
+  const h=Math.floor(diff/1000/60/60);
+  const m=Math.floor(diff/1000/60)%60;
+  const s=Math.floor(diff/1000)%60;
+
+  document.getElementById("countdown").innerHTML=
+  `Countdown to our movie night: ${h}h ${m}m ${s}s`;
+
+},1000);
+
 function celebrate(){
 
-  for(let i=0;i<120;i++){
+  noBtn.style.transform="translate(0,0)";
+
+  for(let i=0;i<140;i++){
     const conf=document.createElement('div');
     conf.className='confetti';
 
@@ -187,8 +287,22 @@ function celebrate(){
     setTimeout(()=>{conf.remove()},3000);
   }
 
-  document.getElementById("finalMessage").style.display="block";
+  const env=document.getElementById("heartEnvelope");
+  env.style.display="block";
+
+  setTimeout(()=>{
+
+    env.innerHTML="💥";
+
+    setTimeout(()=>{
+      env.style.display="none";
+      document.getElementById("bigMessage").style.display="flex";
+    },500);
+
+  },2000);
+
 }
+
 </script>
 
 </body>
