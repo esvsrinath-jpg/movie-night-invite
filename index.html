@@ -176,6 +176,9 @@ button:hover{
 #finalMessage h1{
   font-size:40px;
   color:#ffd54a;
+  opacity:0;
+  animation:subtitleFade 2.5s ease forwards;
+  text-shadow:0 0 15px rgba(255,213,74,0.5);
 }
 
 
@@ -191,7 +194,16 @@ button:hover{
 @keyframes fall{
   to{transform:translateY(100vh) rotate(720deg);opacity:0}
 }
-
+@keyframes subtitleFade{
+  0%{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 </style>
 </head>
 <body>
