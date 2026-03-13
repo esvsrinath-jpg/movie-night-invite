@@ -20,23 +20,6 @@ body{
   overflow:hidden;
 }
 
-/* CINEMA CURTAINS */
-.curtain{
-  position:fixed;
-  top:0;
-  width:50%;
-  height:100%;
-  background:linear-gradient(90deg,#7f1d1d,#dc2626);
-  z-index:10;
-  transition:all 2s ease;
-}
-
-.curtain.left{ left:0; }
-.curtain.right{ right:0; }
-
-.open .left{ transform:translateX(-100%); }
-.open .right{ transform:translateX(100%); }
-
 /* floating hearts */
 .heart{
   position:absolute;
@@ -53,9 +36,9 @@ body{
 
 .card{
   background:rgba(17,24,39,0.9);
-  padding:40px;
+  padding:45px;
   border-radius:22px;
-  width:460px;
+  width:440px;
   text-align:center;
   backdrop-filter: blur(10px);
   box-shadow:0 20px 60px rgba(0,0,0,0.7);
@@ -69,29 +52,28 @@ body{
 
 .title{
   font-size:34px;
-  margin-bottom:6px;
+  margin-bottom:8px;
 }
 
 .subtitle{
   color:#fda4af;
-  margin-bottom:20px;
-  min-height:24px;
+  margin-bottom:25px;
 }
-
-
 
 .details{
   background:#1f2937;
-  padding:18px;
+  padding:22px;
   border-radius:14px;
-  margin-bottom:20px;
+  margin-bottom:25px;
 }
 
-.details p{ margin:8px 0; }
+.details p{
+  margin:10px 0;
+}
 
 .question{
   font-size:20px;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
 
 .buttons{
@@ -109,16 +91,11 @@ button{
   font-size:15px;
   cursor:pointer;
   transition:0.25s;
-  position:relative;
 }
 
 button:hover{
   transform:scale(1.08);
   background:#f43f5e;
-}
-
-.noBtn{
-  background:#475569;
 }
 
 .footer{
@@ -132,7 +109,6 @@ button:hover{
   font-size:20px;
   color:#fda4af;
   display:none;
-  animation:fadeIn 1s ease;
 }
 
 /* confetti */
@@ -140,6 +116,7 @@ button:hover{
   position:fixed;
   width:10px;
   height:10px;
+  background:red;
   top:0;
   animation:fall 3s linear forwards;
 }
@@ -155,24 +132,9 @@ button:hover{
 </head>
 <body>
 
-<div class="curtain left"></div>
-<div class="curtain right"></div>
-
-<audio id="bgMusic" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-
-/* open cinema curtains */
-window.onload = () => {
-  setTimeout(()=>{
-    document.body.classList.add('open');
-  },500);
-}
-
 /* floating hearts */
-for(let i=0;i<25;i++){
+for(let i=0;i<20;i++){
   const heart=document.createElement('div');
   heart.className='heart';
   heart.innerHTML='❤';
@@ -186,9 +148,7 @@ for(let i=0;i<25;i++){
 <div class="card">
 
 <div class="title">🎬 Romantic Movie Night</div>
-<div id="subtitle" class="subtitle"></div>
-
-
+<div class="subtitle">Just you, me & a cozy movie 🍿❤️</div>
 
 <div class="details">
 <p><strong>With:</strong> My Beautiful Fiancé ❤️</p>
@@ -203,7 +163,6 @@ for(let i=0;i<25;i++){
 <div class="buttons">
 <button onclick="celebrate()">Yes 💕</button>
 <button onclick="celebrate()">Absolutely 😍</button>
-<button class="noBtn" id="noBtn">No 🙈</button>
 </div>
 
 <div class="footer">Dress code: Cozy pajamas allowed 🥰</div>
@@ -213,34 +172,9 @@ for(let i=0;i<25;i++){
 </div>
 
 <script>
-
-/* typing animation */
-const text="Just you, me & a cozy movie 🍿❤️";
-let i=0;
-function type(){
-  if(i<text.length){
-    document.getElementById("subtitle").innerHTML+=text.charAt(i);
-    i++;
-    setTimeout(type,50);
-  }
-}
-
-type();
-
-/* running NO button */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-  const x=Math.random()*200-100;
-  const y=Math.random()*200-100;
-  noBtn.style.transform=`translate(${x}px,${y}px)`;
-});
-
 function celebrate(){
 
-  const music=document.getElementById("bgMusic");
-  music.play().catch(()=>{});
-
-  for(let i=0;i<160;i++){
+  for(let i=0;i<120;i++){
     const conf=document.createElement('div');
     conf.className='confetti';
 
@@ -255,7 +189,6 @@ function celebrate(){
 
   document.getElementById("finalMessage").style.display="block";
 }
-
 </script>
 
 </body>
