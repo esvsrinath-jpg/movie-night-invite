@@ -133,8 +133,26 @@ button:hover{transform:scale(1.08);background:#f43f5e}
   left:50%;
   transform:translateX(-50%);
   display:none;
-  animation:flyUp 2s ease forwards;
   z-index:60;
+}
+
+.fly{
+  animation:flyUp 2s ease forwards;
+}
+
+.burst{
+  animation:burstHeart .8s ease forwards;
+}
+
+@keyframes flyUp{
+  from{top:120%}
+  to{top:40%}
+}
+
+@keyframes burstHeart{
+  0%{transform:translateX(-50%) scale(1);opacity:1}
+  50%{transform:translateX(-50%) scale(1.6);opacity:1}
+  100%{transform:translateX(-50%) scale(0);opacity:0}
 }
 
 @keyframes flyUp{to{top:40%}}
@@ -230,6 +248,7 @@ body.night{
 <div id="heartEnvelope">💌</div>
 
 <div id="finalDialog">
+  <div id="preMessage" style="display:none;font-size:28px;color:#fda4af;margin-bottom:20px;text-align:center">For my beautiful fiancée… ❤️</div>
   <div class="dialogBox">
     <h2>See you at 9:30, my love ❤️🍿</h2>
     <div id="countdown"></div>
@@ -336,8 +355,6 @@ function createGlowHearts(){
 
 function celebrate(){
 
- document.body.classList.add('night');
-
  noBtn.style.transform='translate(0,0)';
 
  /* confetti */
@@ -353,21 +370,36 @@ function celebrate(){
 
  const env=document.getElementById('heartEnvelope');
  env.style.display='block';
+ env.classList.add('fly');
 
  setTimeout(()=>{
 
-  env.innerHTML='💥';
+  env.innerHTML='❤️';
+  env.classList.add('burst');
 
   createStars();
   createGlowHearts();
 
   setTimeout(()=>{
+
    env.style.display='none';
-   document.getElementById('finalDialog').style.display='flex';
-   startCountdown();
-  },1200);
+
+   const dialog=document.getElementById('finalDialog');
+   const pre=document.getElementById('preMessage');
+
+   dialog.style.display='flex';
+   pre.style.display='block';
+
+   setTimeout(()=>{
+     pre.style.display='none';
+     dialog.querySelector('h2').style.display='block';
+     startCountdown();
+   },2000);
+
+  },900);
 
  },2000);
+
 }
 
 </script>
