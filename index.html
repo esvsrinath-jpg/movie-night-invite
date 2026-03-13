@@ -274,6 +274,7 @@ function celebrate(){
 
   noBtn.style.transform="translate(0,0)";
 
+  /* confetti */
   for(let i=0;i<140;i++){
     const conf=document.createElement('div');
     conf.className='confetti';
@@ -294,10 +295,30 @@ function celebrate(){
 
     env.innerHTML="💥";
 
+    /* heart explosion across screen */
+    for(let i=0;i<120;i++){
+      const heart=document.createElement('div');
+      heart.innerHTML='❤️';
+      heart.style.position='fixed';
+      heart.style.left=Math.random()*100+'vw';
+      heart.style.top=Math.random()*100+'vh';
+      heart.style.fontSize=(20+Math.random()*30)+'px';
+      heart.style.opacity='0';
+      heart.style.transition='all 1.5s ease';
+      document.body.appendChild(heart);
+
+      setTimeout(()=>{
+        heart.style.opacity='1';
+        heart.style.transform=`translateY(-40px) scale(${1+Math.random()})`;
+      },10);
+
+      setTimeout(()=>{heart.remove()},2000);
+    }
+
     setTimeout(()=>{
       env.style.display="none";
       document.getElementById("bigMessage").style.display="flex";
-    },500);
+    },1200);
 
   },2000);
 
